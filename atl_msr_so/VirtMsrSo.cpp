@@ -64,6 +64,17 @@ void CVirtMsrSo::FireErrorEvent(LONG lResultCode, LONG lResultCodeExtended, LONG
 }
 // -------- Standard OPOS Service Object methods follow
 
+// The OPenService() method is called by the Open() method of the OPOS Common Control object.
+//
+// WARNING: When using the Class View of Visual Studio to add this method to the Service
+//          Object interface you may run into an error from Visual Studio.  It appears that
+//          OpenService() is also part of the Windows API and the Visual Studio Intellisense
+//          may emit errors when attempting to add this method.
+//          You may need to close Visual Studio and delete the .ncb Intellisense data file
+//          in order to recover.
+//          You may also need to create this method with a different name such as CheckService
+//          and then once created, do a Find in order to find all usages of CheckService and
+//          change them to OpenService.
 STDMETHODIMP CVirtMsrSo::OpenService(BSTR DeviceClass, BSTR DeviceName, IDispatch* pDispatch, LONG* pRc)
 {
 	m_pDriver = pDispatch;

@@ -5,6 +5,34 @@
 AppWizard has created this atl_msr_so project for you to use as the starting point for
 writing your Dynamic Link Library (DLL).
 
+There are three areas to this source code.
+ - the DLL and COM object definition in atl_msr_so
+   . the code called when the COM object is registered and when it is loaded
+ - the OPOS Service Object Interface and its supporting source code
+   . this implements the actual Service Object functionality
+ - supporting functions such as User Interfaces for testing and provisioning
+   . these are various dialogs displayed based on particular conditions
+   . there is a simple logging class to assist in development
+
+To obtain the latest version of the OPOS include files you will need to go
+to the Monroe Consulting Services web site where the OPOS Common Controls
+are located.
+
+Monroe Consulting Services are located at http://monroecs.com/
+
+To access a copy of the OPOS Common Controls go to
+the URL http://monroecs.com/oposccos.htm
+
+The actual file containing the include files used are at URL:
+  http://monroecs.com/oposccos_current.htm
+
+Testing of an OPOS Service Object requires a container that can be used to exercise the
+various methods. Microsoft provides a utility with the POS .NET 1.12 installation which
+can be used to exercise an OPOS Common Control and through that a Service Object. The
+POS .NET 1.12 also contains the C# source code for the utility and with a bit of effort
+a C# .NET project can be created and the utility built. The nice thing about this utility
+is that individual OPOS Common Control interface methods such as Open(), Claim(), etc, are
+on the UI as individual buttons allowing the step by step testing of a Service Object.
 
 This file contains a summary of what you will find in each of the files that
 make up your project.
@@ -43,6 +71,46 @@ atl_msr_so.def
         GetProxyDllInfo    
         DllRegisterServer	
         DllUnregisterServer
+
+VirtMsrSo.cpp and VirtMsrSo.h
+    An ATL implementation of the OPOS Service Object interface as a COM object. This COM
+    object implements the following standard basic Service Object interface. Over the years
+    there have been a number of extensions to the basic Service Object interface and different
+    versions of OPOS specifications have provided additional methods. The following set of
+    methods seem to work with OPOS Specification Version 1.2.1.
+    	STDMETHOD(OpenService)(BSTR DeviceClass, BSTR DeviceName, IDispatch* pDispatch, LONG* pRc);
+    	STDMETHOD(CheckHealth)(LONG level, LONG* pRc);
+    	STDMETHOD(ClaimDevice)(LONG ClaimTimeOut, LONG* pRc);
+    	STDMETHOD(ClearInput)(LONG* pRc);
+    	STDMETHOD(CloseService)(LONG* pRc);
+    	STDMETHOD(COFreezeEvents)(VARIANT_BOOL Freeze, LONG* pRc);
+    	STDMETHOD(DirectIO)(LONG Command, LONG* pData, BSTR* pString, LONG* pRc);
+    	STDMETHOD(GetPropertyNumber)(LONG PropIndex, LONG* pNumber);
+    	STDMETHOD(GetPropertyString)(LONG PropIndex, BSTR* pString);
+    	STDMETHOD(SetPropertyNumber)(LONG PropIndex, LONG Number);
+    	STDMETHOD(SetPropertyString)(LONG PropIndex, BSTR PropString);
+    	STDMETHOD(GetOpenResult)(LONG* pRc);
+
+TestDialog.cpp and TestDialog.h
+    An ATL dialog based class which provides a User Interface for testing of the Service Object
+    and its interface with the hardware with which it communicates. Also used for testing the
+    interface between the Service Object and the OPOS Common Control such as the firing of
+    events. The dialog is to allow for determing the cause of OPOS related errors in an
+    application using the Service Object through an OPOS Common Control object.
+
+ProvDialog.cpp and ProvDialog.h
+    An ATL dialog based class which provides a User Interface for provisioning changes for
+    the Service Object.
+
+RegistryData.cpp and RegistryData.h
+    A class which encapsulates reading and writing the Service Object provisioning from the
+    persistent store of the Windows Registry. This class is used as the interface between
+    the Windows Registry and the Service Object functionality.
+
+LogFile.cpp and LogFile.h
+    A class which encapsulates basic logging for the Service Control. The idea is to use this
+    only for development and it is a simple class that uses the Windows file access API.
+
 
 /////////////////////////////////////////////////////////////////////////////
 Other standard files:

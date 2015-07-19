@@ -63,6 +63,10 @@ private:
 	static const wchar_t *m_SecureMag_rs232;
 	static const wchar_t *m_SecureMag_usbhid;
 
+	// This variable is used to save a copy of the COM Dispatch driver for the OPOS
+	// Common Control which the Common Control provides in the OpenService() call.
+	// This object is used to invoke special methods in the Common Control to allow
+	// the Service Object to provide events and other communication.
 	CComDispatchDriver m_pDriver;
 
 	// General OPOS Service Object numeric properties used by all Service Objects.
@@ -103,6 +107,9 @@ private:
 
 	wchar_t  m_RawDataTrack[1024];
 
+	// The object we use to read and write the Service Object persistent data which is
+	// stored in the Windows Registry. Actually if the class were to be changed the
+	// persistent data could be stored somewhere else as well.
 	CRegistryData  m_RegistryData;
 
 private:
@@ -113,6 +120,8 @@ private:
 
 public:
 	// The methods implementing the OPOS Service Object interface
+	// See warning about errors when adding method OpenService with Visual Studio
+	// class wizard and a work around.
 	STDMETHOD(OpenService)(BSTR DeviceClass, BSTR DeviceName, IDispatch* pDispatch, LONG* pRc);
 	STDMETHOD(CheckHealth)(LONG level, LONG* pRc);
 	STDMETHOD(ClaimDevice)(LONG ClaimTimeOut, LONG* pRc);
