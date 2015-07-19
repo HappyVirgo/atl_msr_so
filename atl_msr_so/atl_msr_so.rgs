@@ -1,0 +1,11 @@
+HKCR
+{
+	NoRemove AppID
+	{
+		'%APPID%' = s 'atl_msr_so'
+		'atl_msr_so.DLL'
+		{
+			val AppID = s '%APPID%'
+		}
+	}
+}

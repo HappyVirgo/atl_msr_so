@@ -1,0 +1,49 @@
+// atl_msr_so.idl : IDL source for atl_msr_so
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (atl_msr_so.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(8A1AD13E-6D31-47CF-AE77-F5DAE207D58C),
+	dual,
+	nonextensible,
+	helpstring("IVirtMsrSo Interface"),
+	pointer_default(unique)
+]
+interface IVirtMsrSo : IDispatch{
+	[id(1), helpstring("method OpenService")] HRESULT OpenService(BSTR DeviceClass, BSTR DeviceName, IDispatch* pDispatch, [out,retval] LONG* pRc);
+	[id(2), helpstring("method CheckHealth")] HRESULT CheckHealth(LONG level, [out,retval] LONG* pRc);
+	[id(3), helpstring("method ClaimDevice")] HRESULT ClaimDevice(LONG ClaimTimeOut, [out,retval] LONG* pRc);
+	[id(4), helpstring("method ClearInput")] HRESULT ClearInput([out,retval] LONG* pRc);
+	[id(5), helpstring("method CloseService")] HRESULT CloseService([out,retval] LONG* pRc);
+	[id(6), helpstring("method COFreezeEvents")] HRESULT COFreezeEvents(VARIANT_BOOL Freeze, LONG* pRc);
+	[id(7), helpstring("method DirectIO")] HRESULT DirectIO(LONG Command, [in,out] LONG* pData, [in,out] BSTR* pString, [out,retval] LONG* pRc);
+	[id(8), helpstring("method ReleaseDevice")] HRESULT ReleaseDevice([out,retval] LONG* pRc);
+	[id(9), helpstring("method GetPropertyNumber")] HRESULT GetPropertyNumber(LONG PropIndex, [out,retval] LONG* pNumber);
+	[id(10), helpstring("method GetPropertyString")] HRESULT GetPropertyString(LONG PropIndex, [out,retval] BSTR* pString);
+	[id(11), helpstring("method SetPropertyNumber")] HRESULT SetPropertyNumber(LONG PropIndex, LONG Number);
+	[id(12), helpstring("method SetPropertyString")] HRESULT SetPropertyString(LONG PropIndex, BSTR PropString);
+	[id(13), helpstring("method GetOpenResult")] HRESULT GetOpenResult([out,retval] LONG* pRc);
+};
+[
+	uuid(441B2FA7-310E-49BD-B198-C13EEFFEED9F),
+	version(1.0),
+	helpstring("atl_msr_so 1.0 Type Library")
+]
+library atl_msr_soLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(9EEDF76A-2924-4CC6-A1BE-0F7144FE3E80),
+		helpstring("VirtMsrSo Class")
+	]
+	coclass VirtMsrSo
+	{
+		[default] interface IVirtMsrSo;
+	};
+};

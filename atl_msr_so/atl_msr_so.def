@@ -1,0 +1,9 @@
+; atl_msr_so.def : Declares the module parameters.
+
+LIBRARY      "atl_msr_so.DLL"
+
+EXPORTS
+	DllCanUnloadNow		PRIVATE
+	DllGetClassObject	PRIVATE
+	DllRegisterServer	PRIVATE
+	DllUnregisterServer	PRIVATE

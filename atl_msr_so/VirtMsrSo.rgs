@@ -1,0 +1,27 @@
+HKCR
+{
+	atl_msr_so.OPOS.VirtMsrSo.1 = s 'VirtMsrSo Class'
+	{
+		CLSID = s '{9EEDF76A-2924-4CC6-A1BE-0F7144FE3E80}'
+	}
+	atl_msr_so.OPOS.VirtMsrSo = s 'VirtMsrSo Class'
+	{
+		CLSID = s '{9EEDF76A-2924-4CC6-A1BE-0F7144FE3E80}'
+		CurVer = s 'atl_msr_so.OPOS.VirtMsrSo.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {9EEDF76A-2924-4CC6-A1BE-0F7144FE3E80} = s 'VirtMsrSo Class'
+		{
+			ProgID = s 'atl_msr_so.OPOS.VirtMsrSo.1'
+			VersionIndependentProgID = s 'atl_msr_so.OPOS.VirtMsrSo'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{441B2FA7-310E-49BD-B198-C13EEFFEED9F}'
+		}
+	}
+}
